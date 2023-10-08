@@ -2,6 +2,9 @@
 
 dan.ellis@gmail.com 2023-10-08
 
+![Oven Clock Reader](https://raw.githubusercontent.com/dpwe/oven_clock_reader/main/pics/oven_clock_reader.jpg)
+
+
 This code drives a substitute for a Vacuum Fluorescent Display (VFD)
 on my kitchen range that had become difficult to read with age (these
 displays typically begin to dim after 10 years or so).  My solution is
@@ -46,6 +49,9 @@ Video revealing the display model number:
 
 .. from the service (Nick's TV Repair) that will replace the dim displays:
   https://nickselectronics.com/products/318010100?variant=44698119340308
+
+Helpful article about the basics of VFD circuits:
+  https://www.noritake-elec.com/technology/general-technical-information/vfd-operation
 
 ### External circuit
 
