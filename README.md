@@ -12,13 +12,13 @@ to mirror the intended VFD display on a separate 128 x 64 pixel
 backlit LCD display. 
 
 Passive external circuitry takes the grid and anode voltages from the
-VFB and drop/limit them to 0 and 3.3v, suitable for input to a 3.3v
+VFB and drops/limits them to 0 and 3.3v, suitable for input to a 3.3v
 MCU. I'm using an RP2040 Pico because I need 18 input pins to read the 
-7 grids and 11 anodes that drive the VFD, then another 4 output pins
-to drive the ST7290 LCD display module that I'm using.
+7 grids and 11 segment anodes that drive the VFD, then another 4 output pins
+to drive the ST7920 LCD display module that I'm using.
 
 The VFD drive cycles between the 7 grid "regions" in the display, 
-synchronously setting the 11 segment voltages.  This code attaches an
+synchronously setting the 11 segment anode voltages.  This code attaches an
 interrupt to each grid voltage; on the interrupt, it sets up a brief 
 timer to wait for the anode voltages to stabilize.  When that timer 
 expires, the 11 anode (segment) pins are read in and stored, 
@@ -28,6 +28,9 @@ the stored segment bits are copied to an output buffer.
 The board  cycles through the grids in about 4ms in 10 slots of ~400us
 (with ~380us positive pulses and ~20us gaps), so the sampling of the
 segment anodes is timed to be 100us after the grid interrupt.
+(7 grids are fit into 10 time slots by repeating the first 3
+grids for two slots each; I'd expect this to make them brighter,
+but I never noticed this.)
 
 These captured values are monitored by the foreground task.  When a
 change is detected, the segment bits are interpreted and re-rendered
@@ -49,6 +52,10 @@ Video revealing the display model number:
 
 .. from the service (Nick's TV Repair) that will replace the dim displays:
   https://nickselectronics.com/products/318010100?variant=44698119340308
+
+Forum thread discussing another user's experience with the same problems on 
+the same oven / control panel:
+  https://www.badcaps.net/forum/showthread.php?t=71797
 
 Helpful article about the basics of VFD circuits:
   https://www.noritake-elec.com/technology/general-technical-information/vfd-operation
