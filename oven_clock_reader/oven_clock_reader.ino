@@ -117,7 +117,9 @@ char segs_to_char(uint16_t segs) {
 #endif
 
 // 128x64 ST7920 LCD display
-U8G2_ST7920_128X64_F_SW_SPI u8g2(U8G2_R0, /* clock=*/ 21, /* data=*/ 22, /* CS=*/ 20, /* reset=*/ 26);
+U8G2_ST7920_128X64_F_SW_SPI u8g2(U8G2_R0, /* clock=*/ 26, /* data=*/ 22, /* CS=*/ 21, /* reset=*/ 27);
+
+const int bklt_pin = 28;
 
 void setup_display(void) {
   u8g2.begin();
@@ -201,13 +203,13 @@ volatile bool grid_vals_ready = false;
 
 //// Timer delay interrupts
 //const int NUM_GRID_PINS = 7;
-const int grid_pins[NUM_GRID_PINS] = {8, 7, 6, 5, 4, 3, 2};  // 7G is the rightmost pin.
+const int grid_pins[NUM_GRID_PINS] = {9, 10, 11, 12, 13, 14, 15};  // 7G is the rightmost pin.
 const int NUM_SEG_PINS = 11;
-const int seg_pins[NUM_SEG_PINS] = { 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9 };  // P11 is the rightmost segment pin
+const int seg_pins[NUM_SEG_PINS] = { 20, 19, 18, 17, 16, 3, 4, 5, 6, 7, 8 };  // P11 is the rightmost segment pin
 
 
 // output pin to indicate when sampling happens.
-const int diag_pin = 28;
+const int diag_pin = 2;
 
 
 // grid_seg_vals methods -------------------------
@@ -371,6 +373,13 @@ void setup_grid_pin_interrupts() {
 
 // ------------------------------------------------------
 
+void setup_backlight(void) {
+  pinMode(bklt_pin, OUTPUT);
+  digitalWrite(bklt_pin, HIGH);
+}
+
+// ------------------------------------------------------
+
 void setup() {
   Serial.begin(9600);  // initialize serial communication
   setup_seg_pins();
@@ -378,6 +387,7 @@ void setup() {
   setup_grid_pin_interrupts();
 
   setup_display();
+  setup_backlight();
 
   Serial.println("started ");
 }
