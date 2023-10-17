@@ -4,6 +4,7 @@ dan.ellis@gmail.com 2023-10-08
 
 ![Oven Clock Reader](https://raw.githubusercontent.com/dpwe/oven_clock_reader/main/pics/oven_clock_reader.jpg)
 
+*See the full details and many more pictures on my [blog post](https://dpwe.github.io/arduinoclocks/2023-10-16-oven-clock-reader.html)*
 
 This code drives a substitute for a Vacuum Fluorescent Display (VFD)
 on my kitchen range that had become difficult to read with age (these
